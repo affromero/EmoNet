@@ -28,6 +28,7 @@ def main(config):
 
   img_size = config.image_size
 
+
   data_loader = get_loader(config.metadata_path, img_size,
                    img_size, config.batch_size, config.fold, 'EmotionNet', config.mode,\
                    num_workers=config.num_workers)
@@ -35,7 +36,9 @@ def main(config):
   # Solver
   from solver import Solver    
   solver = Solver(data_loader, config)
-
+  if config.DISPLAY_NET: 
+    solver.display_net()
+    return
   if config.mode == 'train':
     solver.train()
     solver.val()
@@ -62,6 +65,7 @@ if __name__ == '__main__':
   parser.add_argument('--num_workers', type=int, default=4) 
   parser.add_argument('--BLUR', action='store_true', default=False) 
   parser.add_argument('--GRAY', action='store_true', default=False) 
+  parser.add_argument('--DISPLAY_NET', action='store_true', default=False) 
 
   # Test settings
   parser.add_argument('--test_model', type=str, default='')

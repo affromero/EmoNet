@@ -3,6 +3,9 @@
 ## Data to train:
 ![](show/0001.jpg)
 
+## Network: VGG16
+![](network.pdf)
+
 ## Confusion Matrix for three-fold cross testing
 
 ### Fold 0

@@ -49,6 +49,7 @@ class Solver(object):
     self.stop_training = config.stop_training
     self.BLUR = config.BLUR
     self.GRAY = config.GRAY
+    self.DISPLAY_NET = config.DISPLAY_NET
 
     # Test settings
     self.test_model = config.test_model
@@ -78,6 +79,20 @@ class Solver(object):
       # Start with trained model
       if self.pretrained_model:
         self.load_pretrained_model()
+
+  #=======================================================================================#
+  #=======================================================================================#
+  def display_net(self):
+  	#pip install git+https://github.com/szagoruyko/pytorchviz
+  	from graphviz import Digraph
+  	from torchviz import make_dot, make_dot_from_trace
+	y = self.C(self.to_var(torch.randn(1,3,224,224)))
+	g=make_dot(y, params=dict(self.C.named_parameters()))
+	filename='network'
+	print('Network saved at {}.pdf'.format(filename))
+	g.filename=filename
+	g.render()
+	os.remove(filename)
 
   #=======================================================================================#
   #=======================================================================================#
