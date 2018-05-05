@@ -4,7 +4,7 @@
 ![](show/0001.jpg)
 
 ## Network: VGG16
-[embed]network.pdf[/embed]
+![]([embed]network.pdf[/embed])
 
 ## Confusion Matrix for three-fold cross testing
 
