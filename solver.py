@@ -89,10 +89,18 @@ class Solver(object):
 	y = self.C(self.to_var(torch.randn(1,3,224,224)))
 	g=make_dot(y, params=dict(self.C.named_parameters()))
 	filename='network'
-	print('Network saved at {}.pdf'.format(filename))
 	g.filename=filename
 	g.render()
 	os.remove(filename)
+
+	from wand.image import Image
+	from wand.color import Color
+	with Image(filename="{}.pdf".format(filename), resolution=500) as img:
+	  with Image(width=img.width, height=img.height, background=Color("white")) as bg:
+	    bg.composite(img,0,0)
+	    bg.save(filename="{}.png".format(filename))
+	os.remove('{}.pdf'.format(filename))
+	print('Network saved at {}.png'.format(filename))
 
   #=======================================================================================#
   #=======================================================================================#
