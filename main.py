@@ -41,6 +41,8 @@ def main(config):
     solver.val()
   elif config.mode == 'test':
     solver.val(load=True, plot=True)
+  elif config.mode == 'sample':
+    solver.sample()
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()
@@ -65,7 +67,7 @@ if __name__ == '__main__':
   parser.add_argument('--test_model', type=str, default='')
 
   # Misc
-  parser.add_argument('--mode', type=str, default='train', choices=['train', 'test'])
+  parser.add_argument('--mode', type=str, default='train', choices=['train', 'test', 'sample'])
   parser.add_argument('--use_tensorboard', action='store_true', default=False)
   parser.add_argument('--GPU', type=str, default='3')
 

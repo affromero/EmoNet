@@ -70,7 +70,7 @@ def get_loader(metadata_path, crop_size, image_size, batch_size, \
   # normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
   normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[1.0, 1.0, 1.0])
 
-  if mode == 'train':
+  if mode == 'train' or mode == 'sample':
     transform = transforms.Compose([
       transforms.CenterCrop((crop_size)),
       # transforms.Resize((image_size, image_size), interpolation=Image.ANTIALIAS),
@@ -92,7 +92,7 @@ def get_loader(metadata_path, crop_size, image_size, batch_size, \
       ])
 
   dataset = EmotionNet(image_size, metadata_path, transform, mode, fold, \
-              shuffling=mode=='train')
+              shuffling=mode=='train' or mode=='sample')
 
   data_loader = DataLoader(dataset=dataset,
                batch_size=batch_size,

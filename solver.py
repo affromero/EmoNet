@@ -70,13 +70,14 @@ class Solver(object):
     self.blurrandom = 0
 
     # Build tensorboard if use
-    self.build_model()
-    if self.use_tensorboard:
-      self.build_tensorboard()
+    if config.mode!='sample':
+      self.build_model()
+      if self.use_tensorboard:
+        self.build_tensorboard()
 
-    # Start with trained model
-    if self.pretrained_model:
-      self.load_pretrained_model()
+      # Start with trained model
+      if self.pretrained_model:
+        self.load_pretrained_model()
 
   #=======================================================================================#
   #=======================================================================================#
@@ -145,6 +146,13 @@ class Solver(object):
     x = x.clone()
     x = (x >= 0.5).float()
     return x
+
+  #=======================================================================================#
+  #=======================================================================================#
+  def denorm(self, x):
+    mean = torch.FloatTensor([0.485, 0.456, 0.406]).view(1,3,1,1)
+    out = x + mean
+    return out.clamp_(0, 1)
 
   #=======================================================================================#
   #=======================================================================================#
@@ -353,4 +361,18 @@ class Solver(object):
       self.plot_cm(acc, aca, int(last_name.split('_')[0]), int(last_name.split('_')[1]))  
 
     return acc, aca, loss
+
+  #=======================================================================================#
+  #=======================================================================================#
+  def sample(self):
+    """Get a dataset sample."""
+    import math
+    for i, (rgb_img, rgb_label, rgb_files) in enumerate(self.data_loader):
+        # ipdb.set_trace()
+        if self.BLUR: rgb_img = self.blurRANDOM(rgb_img)
+        img_file = 'show/%s.jpg'%(str(i).zfill(4))
+        save_image(self.denorm(rgb_img), img_file, nrow=8)
+        if i==25: break
+
+
 
