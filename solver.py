@@ -214,8 +214,6 @@ class Solver(object):
   #=======================================================================================#
   #=======================================================================================#
   def train(self):
-    """Train StarGAN within a single dataset."""
-
     # Set dataloader
 
     # The number of iterations per epoch
