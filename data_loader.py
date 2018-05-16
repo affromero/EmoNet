@@ -57,7 +57,7 @@ class EmotionNet(Dataset):
     image = Image.open(self.filenames[index])
     label = self.labels[index]
     # ipdb.set_trace()
-    return self.transform(image), torch.LongTensor(label), self.filenames[index]
+    return self.transform(image)*255, torch.LongTensor(label), self.filenames[index]
 
   def __len__(self):
     return self.num_data

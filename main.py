@@ -58,7 +58,7 @@ if __name__ == '__main__':
   parser.add_argument('--dataset', type=str, default='EmotionNet', choices=['EmotionNet'])
   parser.add_argument('--num_epochs', type=int, default=99)
   parser.add_argument('--num_epochs_decay', type=int, default=100)
-  parser.add_argument('--stop_training', type=int, default=5) #How many epochs after loss_val is not decreasing
+  parser.add_argument('--stop_training', type=int, default=5) #How many epochs after acc_val is not increasing
   parser.add_argument('--batch_size', type=int, default=100)
   parser.add_argument('--beta1', type=float, default=0.5)
   parser.add_argument('--beta2', type=float, default=0.999)

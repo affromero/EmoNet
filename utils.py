@@ -111,3 +111,13 @@ def ACC_TEST(config, data_loader, mode = 'TEST', verbose=True):
     print >>config.f, string_ 
 
   return acc, aca, np.array(loss).mean()
+
+
+def pdf2png(filename):
+  from wand.image import Image
+  from wand.color import Color
+  with Image(filename="{}.pdf".format(filename), resolution=500) as img:
+    with Image(width=img.width, height=img.height, background=Color("white")) as bg:
+      bg.composite(img,0,0)
+      bg.save(filename="{}.png".format(filename))
+  os.remove('{}.pdf'.format(filename))
